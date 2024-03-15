@@ -161,8 +161,10 @@ class AudioPre:
                 input_high_end_ = spec_utils.mirroring(
                     self.data["high_end_process"], v_spec_m, input_high_end, self.mp
                 )
+                input_high_end_h_sanitised = np.nan_to_num(input_high_end_h, nan=0.0, posinf=0.0, neginf=0.0)
+                input_high_end__sanitised = np.nan_to_num(input_high_end_, nan=0.0, posinf=0.0, neginf=0.0)
                 wav_vocals = spec_utils.cmb_spectrogram_to_wave(
-                    v_spec_m, self.mp, input_high_end_h, input_high_end_
+                    v_spec_m, self.mp, input_high_end_h_sanitised, input_high_end__sanitised
                 )
             else:
                 wav_vocals = spec_utils.cmb_spectrogram_to_wave(v_spec_m, self.mp)
